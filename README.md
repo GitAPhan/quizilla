@@ -1,6 +1,6 @@
 # quizilla
 
-## Project setup
+## Project frontend setup
 ```
 npm install
 ```
