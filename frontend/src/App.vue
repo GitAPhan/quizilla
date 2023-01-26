@@ -8,4 +8,7 @@
 </script>
 
 <style>
+  .test {
+    font-size: 12px;
+  }
 </style>
