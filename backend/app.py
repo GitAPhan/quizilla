@@ -7,6 +7,8 @@ import dbcreds as d
 
 
 
+
+
 app = Flask(__name__)
 
 @app.post('/api/client')
@@ -35,7 +37,20 @@ def show_all():
         return make_response(json.dumps(result, default=str), 200)
     else:
         return make_response(json.dumps(result, default=str), 400)
+    
+@app.post('/api/clients')
+def add_new_question():
 
+    valid_check=a.check_endpoint_info(request.json, ['question', 'answer_1', 'answer_2', 'answer_3', 'answer_4'])
+    if(valid_check != None):
+        return make_response(json.dumps(valid_check, default=str), 400)
+    
+    result = dh.run_statement('CALL add_question(?,?,?,?,?)', [request.json.get('question'), request.json.get('answer_1'), request.json.get('answer_2'), request.json.get('answer_3'), request.json.get('answer_4')])
+
+    if(type(result) == list):
+        return make_response(json.dumps(result, default=str), 200)
+    else:
+        return make_response(json.dumps(result, default=str), 400)
     
 
 
