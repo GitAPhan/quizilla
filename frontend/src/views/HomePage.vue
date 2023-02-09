@@ -1,13 +1,13 @@
 <template>
     <div>
         <h1>Quizzilla</h1>
-        <img src=godzilla alt="some lizard" />
-        <start-game></start-game>
-        <add-question></add-question>
 
-        
-        
-        
+        <img src=godzilla alt="some lizard" />
+
+        <div> 
+            <start-game></start-game>
+            <add-question></add-question>
+        </div>
 
     </div>
 </template>
@@ -22,7 +22,7 @@ import AddQuestion from '@/components/AddQuestion.vue'
                 godzilla: "https://img.pokemondb.net/sprites/sword-shield/icon/venusaur.png"
             }
         },
-  components: { StartGame, AddQuestion },
+        components: { StartGame, AddQuestion },
         name: 'home-page'
     }
 </script>
