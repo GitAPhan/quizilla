@@ -12,19 +12,14 @@ import dbcreds as d
 app = Flask(__name__)
 
 @app.post('/api/client')
-def question_by_id():
-
-    
+def question_by_id():    
     valid_check=a.check_endpoint_info(request.json, ['id'])
-    if(valid_check != None):
+    if (valid_check != None):
         return make_response(json.dumps(valid_check, default=str), 400)
-    
-    
-    
-
     result = dh.run_statement('CALL search_question_by_id(?)', [request.json.get('id')])
 
-    if(type(result) == list):
+    if (type(result) == list):
+        result=dh.create_dictionary_randomization(result)
         return make_response(json.dumps(result, default=str), 200)
     else:
         return make_response(json.dumps(result, default=str), 400)
@@ -33,7 +28,9 @@ def question_by_id():
 def show_all():
     result = dh.run_statement('CALL show_all()')
 
-    if(type(result) == list):
+    if (type(result) == list):
+        print(result, "here is line 37 --------------")
+        result=dh.create_dictionary_randomization(result)
         return make_response(json.dumps(result, default=str), 200)
     else:
         return make_response(json.dumps(result, default=str), 400)
@@ -42,12 +39,12 @@ def show_all():
 def add_new_question():
 
     valid_check=a.check_endpoint_info(request.json, ['question', 'answer_1', 'answer_2', 'answer_3', 'answer_4'])
-    if(valid_check != None):
+    if (valid_check != None):
         return make_response(json.dumps(valid_check, default=str), 400)
     
     result = dh.run_statement('CALL add_question(?,?,?,?,?)', [request.json.get('question'), request.json.get('answer_1'), request.json.get('answer_2'), request.json.get('answer_3'), request.json.get('answer_4')])
 
-    if(type(result) == list):
+    if (type(result) == list):
         return make_response(json.dumps(result, default=str), 200)
     else:
         return make_response(json.dumps(result, default=str), 400)
@@ -55,7 +52,7 @@ def add_new_question():
 
 
 
-if(d.production_mode == True):
+if (d.production_mode == True):
     print("Running in Production Mode")
     import bjoern #type:ignore
     bjoern.run(app, "0.0.0.0", 5000)
