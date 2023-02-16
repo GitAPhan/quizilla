@@ -1,8 +1,11 @@
 <template>
     <div>
-        <h1>Quizzilla</h1>
+
         <img src="@/assets/godzilla.png" alt="some lizard" />
-        <start-game></start-game>
+        <button>
+            <router-link to='/start'>START</router-link>
+        </button>
+        
         <add-question></add-question>
 
         
@@ -13,21 +16,22 @@
 </template>
 
 <script>
-import StartGame from '@/components/StartGame.vue'
+
 import AddQuestion from '@/components/AddQuestion.vue'
 
     export default {
-        // data() {
-        //     return {
-        //         godzilla: "https://i.imgur.com/mGlDzAY.png"
-        //     }
-        // },
-  components: { StartGame, AddQuestion },
+  
+  components: { AddQuestion },
         name: 'home-page'
     }
 </script>
 
 <style scoped>
-
+div {
+    display: grid;
+}
+a {
+    text-decoration: none;
+}
 
 </style>

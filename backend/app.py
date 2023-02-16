@@ -19,6 +19,7 @@ def question_by_id():
     result = dh.run_statement('CALL search_question_by_id(?)', [request.json.get('id')])
 
     if (type(result) == list):
+        result=dh.create_dictionary_randomization(result)
         return make_response(json.dumps(result, default=str), 200)
     else:
         return make_response(json.dumps(result, default=str), 400)
@@ -29,7 +30,7 @@ def show_all():
 
     if (type(result) == list):
         print(result, "here is line 37 --------------")
-        dh.create_dictionary_randomization(result)
+        result=dh.create_dictionary_randomization(result)
         return make_response(json.dumps(result, default=str), 200)
     else:
         return make_response(json.dumps(result, default=str), 400)

@@ -1,7 +1,8 @@
 <template>
   <div id='app'>
     <nav>
-      <h1> Quizzilla app.vue page</h1>
+      <router-link to='/'>QUIZZILLA, this is in app.vue</router-link>
+      
       <!-- <img :src = "src/assets/godzilla.png"> -->
     </nav>
       <router-view/>
@@ -25,5 +26,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+div nav a {
+    text-decoration: none;
 }
 </style>

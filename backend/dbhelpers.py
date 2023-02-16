@@ -95,13 +95,13 @@ def run_statement(statement, list_of_args=[]):
     the_closer(cursor)
     return result
 
-    # create dictionary using database data
-    def make_dictionary(results, cursor):
-        columns = [i[0] for i in cursor.description]
-        new_results = []
-        for row in results:
-            new_results.append(dict(zip(columns, row)))
-        return new_results
+# create dictionary using database data
+def make_dictionary(results, cursor):
+    columns = [i[0] for i in cursor.description]
+    new_results = []
+    for row in results:
+        new_results.append(dict(zip(columns, row)))
+    return new_results
     
 def create_dictionary_randomization(results):
     new_results = []

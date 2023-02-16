@@ -7,6 +7,11 @@
 
 <script>
     export default {
+        methods: {
+            add_() {
+                
+            }
+        },
         name: 'add-question'
         
     }
