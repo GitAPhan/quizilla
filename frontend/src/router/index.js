@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomePage from '@/views/HomePage.vue'
 import StartGame from '@/views/StartGame.vue'
+import AddQuestionPage from '@/views/AddQuestionPage'
 
 
 
@@ -15,6 +16,10 @@ const routes = [
 {
   path: '/start',
   component: StartGame
+},
+{
+  path: '/add-question',
+  component: AddQuestionPage
 }
 ]
 
