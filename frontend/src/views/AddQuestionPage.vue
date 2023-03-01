@@ -5,10 +5,10 @@
         <v-row>
           <v-col cols="12" md="4">
             <v-text-field
-              v-model="firstname"
-              :rules="nameRules"
-              :counter="10"
-              label="First name"
+              v-model="question"
+              :rules="questionRules"
+              :counter="255"
+              label="Question"
               required
             ></v-text-field>
           </v-col>
@@ -42,18 +42,30 @@ export default {
   name: "add-question-page",
   data: () => ({
     valid: false,
-    firstname: "",
+    question: "",
     lastname: "",
+    questionRules: [
+      (value) => {
+        if (value) return true;
+
+        return "Question is required.";
+      },
+      (value) => {
+        if (value?.length <= 255) return true;
+
+        return "Question must be less than 255 characters.";
+      },
+    ],
     nameRules: [
       (value) => {
         if (value) return true;
 
-        return "Name is requred.";
+        return "Question is required.";
       },
       (value) => {
         if (value?.length <= 10) return true;
 
-        return "Name must be less than 10 characters.";
+        return "Question must be less than 255 characters.";
       },
     ],
     email: "",
