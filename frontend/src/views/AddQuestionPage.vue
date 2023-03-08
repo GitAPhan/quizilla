@@ -1,37 +1,35 @@
 <template>
   <div>
-    <v-form v-model="valid">
-      <v-container>
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <v-container class="pa-15">
         <v-row>
-          <v-col cols="12" md="4">
-            <v-text-field
-              v-model="question"
-              :rules="questionRules"
-              :counter="255"
-              label="Question"
-              required
-            ></v-text-field>
-          </v-col>
-
-          <v-col cols="12" md="4">
-            <v-text-field
-              v-model="lastname"
-              :rules="nameRules"
-              :counter="10"
-              label="Last name"
-              required
-            ></v-text-field>
-          </v-col>
-
-          <v-col cols="12" md="4">
-            <v-text-field
-              v-model="email"
-              :rules="emailRules"
-              label="E-mail"
-              required
-            ></v-text-field>
-          </v-col>
+          <v-text-field
+            v-model="question"
+            :rules="questionRules"
+            :counter="255"
+            label="Question"
+            required
+          ></v-text-field>
         </v-row>
+        <v-radio-group v-model="ans_cor">
+          <v-row v-for="n in ans_qty" :key="n">
+            <v-radio :value="n"></v-radio>
+            <v-text-field
+              :v-model="`ans_${n}`"
+              :rules="answerRules"
+              :counter="150"
+              :label="ans_cor === n ? 'correct answer' : 'answer'"
+              required
+            ></v-text-field>
+          </v-row>
+        </v-radio-group>
+        <v-checkbox
+          v-model="checkbox"
+          :rules="(v) => !!v || 'you must agree to continue'"
+          label="by checking this box you have confirmed that you are not a dick and your submission is valid"
+          required
+        ></v-checkbox>
+        <v-btn :disabled="!checkbox">Submit</v-btn>
       </v-container>
     </v-form>
   </div>
@@ -43,7 +41,13 @@ export default {
   data: () => ({
     valid: false,
     question: "",
-    lastname: "",
+    ans_qty: 4, //maybe use to add/subtract amount of answers
+    ans_1: "",
+    ans_2: "",
+    ans_3: "",
+    ans_4: "",
+    ans_cor: "",
+    checkbox: false,
     questionRules: [
       (value) => {
         if (value) return true;
@@ -56,29 +60,23 @@ export default {
         return "Question must be less than 255 characters.";
       },
     ],
-    nameRules: [
+    answerRules: [
       (value) => {
         if (value) return true;
 
-        return "Question is required.";
+        return "Answer is required.";
       },
       (value) => {
-        if (value?.length <= 10) return true;
+        if (value?.length <= 150) return true;
 
-        return "Question must be less than 255 characters.";
+        return "Answer must be less than 150 characters.";
       },
     ],
-    email: "",
-    emailRules: [
+    answerRulesOption: [
       (value) => {
-        if (value) return true;
+        if (value?.length <= 150) return true;
 
-        return "E-mail is requred.";
-      },
-      (value) => {
-        if (/.+@.+\..+/.test(value)) return true;
-
-        return "E-mail must be valid.";
+        return "Answer must be less than 150 characters.";
       },
     ],
   }),
