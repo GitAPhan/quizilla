@@ -1,10 +1,22 @@
 <template>
     <div>
-        <h1 ref="question_box">{{ques}}, {{totalques}}</h1>
-        <button @click="checkanswer">{{ans1}}</button>
-        <button @click="checkanswer">{{ans2}}</button>
+        <h1 ref="question_box">{{ques}}, {{totalques2}}</h1>
+        <!-- <button @click="checkanswer"><p>{{ans1}}</p></button> -->
+        <article v-for="(ans, index) in allans" :key="index">
+            <article @click="checkanswer(ans)">
+            <article v-if="ans.length > 1">
+            <button ref="highlightb">{{ans.slice(1)}}</button>
+            </article>
+            </article>
+        </article>
+        <!-- <button @click="checkanswer">{{ans2}}</button>
         <button @click="checkanswer">{{ans3}}</button>
-        <button @click="checkanswer">{{ans4}}</button>
+        <button @click="checkanswer">{{ans4}}</button> -->
+        <button @click="nextQuestion()">Next</button>
+        <article @click="render()">
+        <button @click="getQuesById(cur1[count])">new question</button>
+        </article>
+        <question-count></question-count>
         
 
     </div>
@@ -12,14 +24,11 @@
 
 <script>
 import axios from "axios"
+import QuestionCount from './QuestionCount.vue'
+import Cookies from "vue-cookies"
 
 
     export default {
-        methods: {
-            name() {
-                
-            }
-        },
         data() {
             return {
                 
@@ -28,44 +37,66 @@ import axios from "axios"
                 ans2: "testing ans2",
                 ans3: "testing ans3",
                 ans4: "testing ans4",
-                totalques: []
+                score: 0,
+                idkey: "",
+                allans: [1,2,3,],
+                count: 0,
+                totalques2: "",
+                cur1: Cookies.get('totalques'),
+                highlights: "none"
                 
             }
         },
-        mounted () {
-            axios.request({
+  components: { QuestionCount },
+        methods: {
+            checkanswer(ans) {
+                if(ans.charAt(0) === "1") {
+                    this.$refs[`highlightb`].backgroundcolor = "green";
+                    this.score += 1;
+                }
+            },
+            // nextQuestion() {
+            //     let before = [];
+            //     let cur = 0;
+                
+            //     before = JSON.parse(Cookies.get())at
+            //     cur = before.pop();
+            //     Cookies.set('totalques', before);
+            //     return cur
+
+            // },
+            getQuesById(count) {
+                // const totalques = JSON.parse(Cookies.get('totalques'))
+                // const nextQuesId = totalques.pop()
+                // Cookies.set('totalques', totalques)
+
+                axios.request({
                 url: `http://127.0.0.1:5000/api/client`,
-        
-           
+                method: `POST`,
+                data: {
+                    'id': count
+                }
         }).then((success)=>{
-            success
+            success;
             console.log(success)
-
-        
-            // this.ques = "this is successful"
-            // this.ques = success.data[0][`question`]
             // for(let i=0;i<success.data.length; i++) {
-            //     this.totalques.push(success.data[i][`id`])
+            // vm.$set('totalques2', success.data[0].question)
+            this.totalques2 = success.data[0].question;
+            this.allans = success.data[0].answers;
+            this.idkey = success.data[0].id
+            this.count += 1;
+            // this.$router.go(0)
             // }
-            // let selectedQuestions = [];
-            // const getRandomIndex = (arr) => Math.floor(Math.random()*this.totalques.length)
-
-            // const getRandomObject = (arr) => {
-            //     const random = getRandomIndex(arr);
-            //     if (selectedQuestions.includes(random)) {
-            //         return getRandomObject(arr);
-        
-            //     }
-            //     selectedQuestions.push(random);
-
-            // }
-
-            this.ans1 = success
             
         }).catch((error)=>{
             error
         })
         },
+        },
+    
+    
+        
+   
         name: "quiz-screen"
     }
 </script>
@@ -79,4 +110,5 @@ import axios from "axios"
     button {
         max-width: 70vh;
     }
+    highlightbutton {}
 </style>

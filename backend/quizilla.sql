@@ -31,7 +31,7 @@ CREATE TABLE `question_answer` (
   `answer_4` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `question_answer` (
 
 LOCK TABLES `question_answer` WRITE;
 /*!40000 ALTER TABLE `question_answer` DISABLE KEYS */;
-INSERT INTO `question_answer` VALUES (1,'What was the name given to a hypothetical planet about the size of neptune that could be orbiting around our solar system','0New Planet','0Planet Alpha','1Planet X','0Planet Y',NULL),(2,'What\'s the name of Elon Musk\'s ai robot?','0Bumble Bee','0Star Scream','1Optimus','0Ironhide','2023-01-13 14:34:39'),(3,'testing question','1right','0wrong','0','0','2023-01-13 20:09:06');
+INSERT INTO `question_answer` VALUES (1,'What was the name given to a hypothetical planet about the size of neptune that could be orbiting around our solar system','0New Planet','0Planet Alpha','1Planet X','0Planet Y',NULL),(2,'What\'s the name of Elon Musk\'s ai robot?','0Bumble Bee','0Star Scream','1Optimus','0Ironhide','2023-01-13 14:34:39'),(3,'testing question','1right','0wrong','0','0','2023-01-13 20:09:06'),(4,'fastest speed a jet can recorded to travel','0mach 5 speed','1mach 3.3 speed','0mach 3.2 speed','0mach 4 speed','2023-01-26 22:30:17'),(6,'abc','1one','0two','0three','0four','2023-02-15 22:18:53'),(8,'abc','1one','0tweeeeee','0three','0four','2023-02-15 22:19:24');
 /*!40000 ALTER TABLE `question_answer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +83,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `search_question_by_id`(id_input int unsigned)
 BEGIN
-	SELECT question, answer_1, answer_2, answer_3, answer_4
+	SELECT id, CONVERT (question USING utf8), CONVERT (answer_1 USING utf8), CONVERT (answer_2 USING utf8), CONVERT (answer_3 USING utf8), CONVERT (answer_4 USING utf8)
 	FROM question_answer
 	WHERE id = id_input;
 END ;;
@@ -104,7 +104,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `show_all`()
 BEGIN
-	SELECT id, question, answer_1, answer_2, answer_3, answer_4
+	SELECT id, CONVERT(question USING utf8), CONVERT(answer_1 USING utf8), CONVERT(answer_2 USING utf8), CONVERT(answer_3 USING utf8), CONVERT(answer_4 USING utf8)
 	FROM question_answer;
 END ;;
 DELIMITER ;
@@ -122,4 +122,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-25 22:14:32
+-- Dump completed on 2023-03-07 23:07:48
