@@ -1,10 +1,12 @@
 <template>
-    <div class="home-page-container">
-        <h1>Quizzilla</h1>
+    <div>
 
-        <img src="@/assets/godzilla.png" alt="quizilla" />
-
+        <img src="@/assets/godzilla.png" alt="some lizard" />
         <div class="btn-container"> 
+            <button>
+                <router-link to='/start'>START</router-link>
+            </button>
+    
             <start-game class="btn"></start-game>
             <add-question class="btn"></add-question>
         </div>
@@ -13,16 +15,12 @@
 </template>
 
 <script>
-import StartGame from '@/components/StartGame.vue'
+
 import AddQuestion from '@/components/AddQuestion.vue'
 
     export default {
-        // data() {
-        //     return {
-        //         godzilla: "https://img.pokemondb.net/sprites/sword-shield/icon/venusaur.png"
-        //     }
-        // },
-        components: { StartGame, AddQuestion },
+  
+  components: { AddQuestion },
         name: 'home-page'
     }
 </script>
@@ -33,6 +31,13 @@ import AddQuestion from '@/components/AddQuestion.vue'
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+div {
+    display: grid;
+}
+a {
+    text-decoration: none;
+}
 
     h1 {
         color: #fff;

@@ -1,4 +1,5 @@
 import mariadb
+import random
 
 
 
@@ -94,10 +95,20 @@ def run_statement(statement, list_of_args=[]):
     the_closer(cursor)
     return result
 
-    # create dictionary using database data
-    def make_dictionary(results, cursor):
-        columns = [i[0] for i in cursor.description]
-        new_results = []
-        for row in results:
-            new_results.append(dict(zip(columns, row)))
-        return new_results
+# create dictionary using database data
+def make_dictionary(results, cursor):
+    columns = [i[0] for i in cursor.description]
+    new_results = []
+    for row in results:
+        new_results.append(dict(zip(columns, row)))
+    return new_results
+    
+def create_dictionary_randomization(results):
+    new_results = []
+    
+    for row in results:
+        answers_arr = list(row[-4:])
+        random.shuffle(answers_arr)
+        new_results.append(dict(id = row[0], question = row[1], answers = answers_arr ))
+    return new_results
+            

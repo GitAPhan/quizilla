@@ -1,6 +1,14 @@
 <template>
   <div id='app'>
-    <router-view></router-view>
+    <nav>
+      <router-link to='/'>QUIZZILLA, this is in app.vue</router-link>
+      
+      <!-- <img :src = "src/assets/godzilla.png"> -->
+    </nav>
+      <router-view/>
+      
+      <!-- <router-link to="/home">testing2</router-link> -->
+    
   </div>
 </template>
 
@@ -26,4 +34,7 @@ button {
     padding: 7px 20px;
 }
 
+div nav a {
+    text-decoration: none;
+}
 </style>
