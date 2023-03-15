@@ -1,7 +1,8 @@
 <template>
-    <div>
-        <h1 ref="question_box">{{ques}}, {{totalques2}}</h1>
+    <div class="box-container">
+        <h1 ref="question_box" class="question-container">{{ques}}, {{totalques2}}</h1>
         <!-- <button @click="checkanswer"><p>{{ans1}}</p></button> -->
+        
         <article v-for="(ans, index) in allans" :key="index">
             <!-- <article ref="highlightb" @click="checkanswer(ans)"> -->
             <article v-if="ans.length > 1">
@@ -19,7 +20,7 @@
         <h2>{{this.cur1}}</h2>
         <question-count></question-count>
         
-
+        <div class="answers-bg-container"></div>
     </div>
 </template>
 
@@ -146,7 +147,40 @@ import Cookies from "vue-cookies"
     button {
         max-width: 70vh;
     }
-    // this.$refs[highlightb] {
-    //     background: red
-    // }
+    .box-container {
+        border: black solid 1px;
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        height: 70vh;
+        width: 600px;
+
+        .question-container {
+            background: #000;
+            color: #fff;
+            margin-top: 0;
+            text-align: center;
+            padding: 20px 0;
+            height: 70px;
+            width: 100%;
+        }
+
+        .answers-bg-container{
+            background-color: #fff;
+            opacity: 30%;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: -1;
+        }
+
+        button {
+            width: 100%;
+        }
+       
+    }
+    
 </style>

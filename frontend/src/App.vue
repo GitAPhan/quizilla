@@ -13,20 +13,27 @@
 </template>
 
 <script>
-
-  
-
-
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<style lang="scss">
+$tablet: 650px;
+$laptop: 1024px;
+
+body {
+  background-image: linear-gradient(#7889f3, #413a76, #071339);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
+
+button {
+    border-radius: 25px;
+    margin: 10px 10px 5px;
+    padding: 7px 20px;
+}
+
 div nav a {
     text-decoration: none;
 }
